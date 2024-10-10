@@ -7,8 +7,8 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black bg-opacity-60">
         <div className="container mx-auto h-full flex items-center">
           <div className="text-white max-w-2xl">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">Elevate Your Exotic Car Experience</h1>
-            <p className="text-xl md:text-2xl mb-10 text-gray-300">Precision engineering meets artistic design for the world's finest automobiles.</p>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">GT Performance & Design</h1>
+            <p className="text-xl md:text-2xl mb-10 text-gray-300">Elevating exotic and sports cars with precision engineering and artistic design.</p>
             <a href="#contact" className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-red-700 transition duration-300">
               Start Your Transformation
               <ChevronRight className="ml-2" />
