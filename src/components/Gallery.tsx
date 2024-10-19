@@ -1,4 +1,4 @@
-ariimport React from 'react';
+import React from 'react';
 
 interface GalleryImageProps {
   src: string;
