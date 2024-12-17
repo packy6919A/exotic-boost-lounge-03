@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Edit2, Trash2, LogOut } from "lucide-react";
 
 interface Car {
   id: string;
@@ -15,6 +16,7 @@ const CarAdmin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isEditing, setIsEditing] = useState<string | null>(null);
   const [cars, setCars] = useState<Car[]>([
     {
       id: '1',
@@ -58,6 +60,14 @@ const CarAdmin = () => {
     }
   };
 
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUsername('');
+    setPassword('');
+    setIsEditing(null);
+    toast.success('Logged out successfully');
+  };
+
   const handleAddCar = () => {
     if (!newCar.src || !newCar.alt) {
       toast.error("Please fill in all fields");
@@ -75,6 +85,36 @@ const CarAdmin = () => {
     toast.success("Car added successfully!");
   };
 
+  const handleEditCar = (id: string) => {
+    const carToEdit = cars.find(car => car.id === id);
+    if (carToEdit) {
+      setIsEditing(id);
+      setNewCar({
+        src: carToEdit.src,
+        alt: carToEdit.alt
+      });
+    }
+  };
+
+  const handleUpdateCar = () => {
+    if (!isEditing) return;
+    
+    setCars(cars.map(car => {
+      if (car.id === isEditing) {
+        return {
+          ...car,
+          src: newCar.src,
+          alt: newCar.alt
+        };
+      }
+      return car;
+    }));
+
+    setIsEditing(null);
+    setNewCar({ src: '', alt: '' });
+    toast.success("Car updated successfully!");
+  };
+
   const handleDeleteCar = (id: string) => {
     setCars(cars.filter(car => car.id !== id));
     toast.success("Car removed successfully!");
@@ -87,8 +127,13 @@ const CarAdmin = () => {
           <Button variant="outline">Manage Cars</Button>
         </DialogTrigger>
         <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
+          <DialogHeader className="flex flex-row justify-between items-center">
             <DialogTitle>Manage Car Gallery</DialogTitle>
+            {isAuthenticated && (
+              <Button variant="ghost" size="icon" onClick={handleLogout}>
+                <LogOut className="h-4 w-4" />
+              </Button>
+            )}
           </DialogHeader>
           
           {!isAuthenticated ? (
@@ -122,7 +167,9 @@ const CarAdmin = () => {
                   value={newCar.alt}
                   onChange={(e) => setNewCar({ ...newCar, alt: e.target.value })}
                 />
-                <Button onClick={handleAddCar}>Add New Car</Button>
+                <Button onClick={isEditing ? handleUpdateCar : handleAddCar}>
+                  {isEditing ? 'Update Car' : 'Add New Car'}
+                </Button>
               </div>
 
               <div className="grid gap-4">
@@ -133,12 +180,22 @@ const CarAdmin = () => {
                       <h3 className="font-semibold">{car.alt}</h3>
                       <p className="text-sm text-gray-500 truncate">{car.src}</p>
                     </div>
-                    <Button
-                      variant="destructive"
-                      onClick={() => handleDeleteCar(car.id)}
-                    >
-                      Delete
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => handleEditCar(car.id)}
+                      >
+                        <Edit2 className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => handleDeleteCar(car.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 ))}
               </div>
