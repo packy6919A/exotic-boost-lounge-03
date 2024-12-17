@@ -12,6 +12,9 @@ interface Car {
 }
 
 const CarAdmin = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [cars, setCars] = useState<Car[]>([
     {
       id: '1',
@@ -46,6 +49,15 @@ const CarAdmin = () => {
     alt: ''
   });
 
+  const handleLogin = () => {
+    if (username === 'pippopelo' && password === '#Piccirillo0902#') {
+      setIsAuthenticated(true);
+      toast.success('Successfully logged in!');
+    } else {
+      toast.error('Invalid credentials');
+    }
+  };
+
   const handleAddCar = () => {
     if (!newCar.src || !newCar.alt) {
       toast.error("Please fill in all fields");
@@ -79,39 +91,59 @@ const CarAdmin = () => {
             <DialogTitle>Manage Car Gallery</DialogTitle>
           </DialogHeader>
           
-          <div className="space-y-4">
-            <div className="grid gap-4">
+          {!isAuthenticated ? (
+            <div className="space-y-4">
               <Input
-                placeholder="Image URL"
-                value={newCar.src}
-                onChange={(e) => setNewCar({ ...newCar, src: e.target.value })}
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <Input
-                placeholder="Car Name"
-                value={newCar.alt}
-                onChange={(e) => setNewCar({ ...newCar, alt: e.target.value })}
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <Button onClick={handleAddCar}>Add New Car</Button>
+              <Button onClick={handleLogin} className="w-full">
+                Login
+              </Button>
             </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="grid gap-4">
+                <Input
+                  placeholder="Image URL"
+                  value={newCar.src}
+                  onChange={(e) => setNewCar({ ...newCar, src: e.target.value })}
+                />
+                <Input
+                  placeholder="Car Name"
+                  value={newCar.alt}
+                  onChange={(e) => setNewCar({ ...newCar, alt: e.target.value })}
+                />
+                <Button onClick={handleAddCar}>Add New Car</Button>
+              </div>
 
-            <div className="grid gap-4">
-              {cars.map((car) => (
-                <div key={car.id} className="flex items-center gap-4 p-2 border rounded">
-                  <img src={car.src} alt={car.alt} className="w-20 h-20 object-cover rounded" />
-                  <div className="flex-1">
-                    <h3 className="font-semibold">{car.alt}</h3>
-                    <p className="text-sm text-gray-500 truncate">{car.src}</p>
+              <div className="grid gap-4">
+                {cars.map((car) => (
+                  <div key={car.id} className="flex items-center gap-4 p-2 border rounded">
+                    <img src={car.src} alt={car.alt} className="w-20 h-20 object-cover rounded" />
+                    <div className="flex-1">
+                      <h3 className="font-semibold">{car.alt}</h3>
+                      <p className="text-sm text-gray-500 truncate">{car.src}</p>
+                    </div>
+                    <Button
+                      variant="destructive"
+                      onClick={() => handleDeleteCar(car.id)}
+                    >
+                      Delete
+                    </Button>
                   </div>
-                  <Button
-                    variant="destructive"
-                    onClick={() => handleDeleteCar(car.id)}
-                  >
-                    Delete
-                  </Button>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>
