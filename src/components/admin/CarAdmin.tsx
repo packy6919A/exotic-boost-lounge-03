@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Edit2, Trash2, LogOut } from "lucide-react";
+import { Edit2, Trash2, LogOut, ChevronRight } from "lucide-react";
 
 interface Car {
   id: string;
@@ -124,7 +124,10 @@ const CarAdmin = () => {
     <div className="p-4">
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Manage Cars</Button>
+          <Button className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-red-700 transition duration-300">
+            Manage Cars
+            <ChevronRight className="ml-2" />
+          </Button>
         </DialogTrigger>
         <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
           <DialogHeader className="flex flex-row justify-between items-center">
