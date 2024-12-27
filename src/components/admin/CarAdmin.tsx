@@ -21,7 +21,7 @@ const CarAdmin = () => {
     {
       id: '1',
       src: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      alt: "Ferrari",
+      alt: "BMW",
       className: "col-span-2 row-span-2"
     },
     {
