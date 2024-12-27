@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import CarAdmin from './admin/CarAdmin';
 
 interface GalleryImageProps {
   src: string;
@@ -25,7 +24,6 @@ const GalleryImage: React.FC<GalleryImageProps> = ({ src, alt, className }) => (
 );
 
 const Gallery: React.FC = () => {
-  const [isAdmin] = useState(true); // In a real app, this would come from authentication
   const [images] = useState<GalleryImageProps[]>([
     {
       src: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -55,7 +53,6 @@ const Gallery: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center mb-16">
           <h2 className="text-4xl font-bold text-white">Our Masterpieces</h2>
-          {isAdmin && <CarAdmin />}
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
           {images.map((image, index) => (
