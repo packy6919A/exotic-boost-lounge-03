@@ -27,12 +27,12 @@ const Gallery: React.FC = () => {
   const [images] = useState<GalleryImageProps[]>([
     {
       src: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      alt: "BMW",
+      alt: "Bmw",
       className: "col-span-2 row-span-2"
     },
     {
       src: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      alt: "Nissan"
+      alt: "Lamborghini"
     },
     {
       src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -40,7 +40,7 @@ const Gallery: React.FC = () => {
     },
     {
       src: "https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      alt: "Chevrolet"
+      alt: "McLaren"
     },
     {
       src: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
