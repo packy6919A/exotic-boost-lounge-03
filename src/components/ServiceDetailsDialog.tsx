@@ -4,6 +4,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 
 interface ServiceDetailsProps {
@@ -26,6 +27,9 @@ const ServiceDetailsDialog: React.FC<ServiceDetailsProps> = ({
       <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">{service.title}</DialogTitle>
+          <DialogDescription className="text-gray-600">
+            Explore our {service.title} collection
+          </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           {service.images.map((image, index) => (
